@@ -1,0 +1,7 @@
+Sound effects created with BFXR at bfxr.net. It's a really useful Flash player that lets you create low bit sound effects and export them to WAVs. Very useful for game jams. 
+
+Music is "Gameshow Brazz" by John Bartmann, a public domain asset downloaded freely on freemusicarchive.org.
+
+Graphics are from kenney.nl ("Kenney Assets") - the simplified platformer pack.
+
+Making credits likes these is super boring, but super useful. Let's you keep track of where you found the good stuff and gives you info for putting into your game so that you don't get sued. It's like plugging holes in your boat BEFORE you set sail.

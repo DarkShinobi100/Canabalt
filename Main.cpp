@@ -4,6 +4,9 @@
 //libraries
 #include <SFML/Graphics.hpp>
 
+//project includes
+#include "AssetManager.h"
+
 
 int main()
 {
@@ -14,11 +17,18 @@ int main()
 
 	//Rendom Window creation
 	sf::RenderWindow gameWindow; //Makes a variable called gameWindow of the type renderwindow
-	gameWindow.create(sf::VideoMode::getDesktopMode(), "Whack a critter!",
+	gameWindow.create(sf::VideoMode::getDesktopMode(), "Canabalt!",
 		sf::Style::Titlebar | sf::Style::Close);
 	
 	//Timer functionality
 	sf::Clock gameClock; //game clock
+
+	//create AssetManager
+	AssetManager assets;
+
+	//testing AssetManager
+	sf::Sprite testsprite;
+	testsprite.setTexture(AssetManager::GetTexture("graphics/playerjump.png"));
 
 	//----------------------------------------------------
 	//---------------=End game setup=---------------------
@@ -70,7 +80,7 @@ int main()
 		gameWindow.clear(sf::Color::Cyan);
 
 		//draw everything
-		
+		gameWindow.draw(testsprite);
 
 		//display the window contents to the screen
 		gameWindow.display();
