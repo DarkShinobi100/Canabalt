@@ -6,7 +6,7 @@
 
 //project includes
 #include "AssetManager.h"
-
+#include "Animation.h"
 
 int main()
 {
@@ -27,11 +27,32 @@ int main()
 	AssetManager assets;
 
 	//testing AssetManager
-	sf::Sprite testsprite;
-	testsprite.setTexture(AssetManager::GetTexture("graphics/playerjump.png"));
-	sf::Sound testsound;
-	testsound.setBuffer(AssetManager::GetSoundBuffer("audio/death.wav"));
-	testsound.play();
+	//test sprite
+		sf::Sprite testsprite;
+		testsprite.setTexture(AssetManager::GetTexture("graphics/playerjump.png"));
+	
+	//test music
+		sf::Sound testmusic;
+		testmusic.setBuffer(AssetManager::GetSoundBuffer("audio/Persona5OST.ogg"));
+		testmusic.play();
+		testmusic.setLoop(true);
+	
+	//test font
+
+		//create Title
+		sf::Text testText;
+		testText.setFont(AssetManager::GetFont("fonts/mainFont.ttf"));
+		testText.setString("Canabalt Persona 5 style");
+		testText.setCharacterSize(100);
+		testText.setFillColor(sf::Color::Red);
+		testText.setStyle(sf::Text::Bold | sf::Text::Italic);
+		testText.setPosition(gameWindow.getSize().x / 2 - testText.getLocalBounds().width / 2, 30);
+
+	//test animation
+		Animation testAnimation;
+		testAnimation.SetSprite(testsprite);
+		testAnimation.AddFrame(AssetManager::GetTexture("graphics/playerRun1.png"));
+		testAnimation.AddFrame(AssetManager::GetTexture("graphics/playerRun2.png"));
 
 	//----------------------------------------------------
 	//---------------=End game setup=---------------------
@@ -69,6 +90,9 @@ int main()
 		//update time
 		sf::Time frameTime = gameClock.restart();
 
+		//update Animation
+		testAnimation.Update(frameTime);
+
 		//-------------------------------------------------
 		//--------------=End Update=-----------------------
 		//-------------------------------------------------
@@ -80,10 +104,11 @@ int main()
 		//-------------------------------------------------
 
 		//clear the window to a single colour
-		gameWindow.clear(sf::Color::Cyan);
+		gameWindow.clear(sf::Color::Black);
 
 		//draw everything
 		gameWindow.draw(testsprite);
+		gameWindow.draw(testText);
 
 		//display the window contents to the screen
 		gameWindow.display();
