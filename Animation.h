@@ -15,9 +15,9 @@ public:
 
 	void Update(sf::Time _frameTime);
 	
-	void play();
-	void pause();
-	void stop();
+	void Play();
+	void Pause();
+	void Stop();
 
 	bool IsPlaying();
 

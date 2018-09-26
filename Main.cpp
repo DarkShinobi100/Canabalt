@@ -30,7 +30,9 @@ int main()
 	//test sprite
 		sf::Sprite testsprite;
 		testsprite.setTexture(AssetManager::GetTexture("graphics/playerjump.png"));
-	
+		testsprite.setPosition(gameWindow.getSize().x / 2 ,gameWindow.getSize().y / 2);
+		testsprite.setScale(3, 3);
+
 	//test music
 		sf::Sound testmusic;
 		testmusic.setBuffer(AssetManager::GetSoundBuffer("audio/Persona5OST.ogg"));
@@ -53,6 +55,8 @@ int main()
 		testAnimation.SetSprite(testsprite);
 		testAnimation.AddFrame(AssetManager::GetTexture("graphics/playerRun1.png"));
 		testAnimation.AddFrame(AssetManager::GetTexture("graphics/playerRun2.png"));
+		testAnimation.Play();
+		testAnimation.SetLoop(true);
 
 	//----------------------------------------------------
 	//---------------=End game setup=---------------------
