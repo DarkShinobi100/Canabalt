@@ -8,6 +8,9 @@
 
 class AnimationSystem
 {
+
+public:
+
 	AnimationSystem();
 
 	// setup

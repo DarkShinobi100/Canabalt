@@ -131,7 +131,7 @@ void Animation::SetPlaybackSpeed(float _framesPerSecond)
 
 	//if the playback speed is zero
 	//pause to protect from divide by zero
-	if (m_playbackSpeed = 0)
+	if (m_playbackSpeed == 0)
 	{
 		Pause();
 	}

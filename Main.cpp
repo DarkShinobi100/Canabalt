@@ -7,6 +7,7 @@
 //project includes
 #include "AssetManager.h"
 #include "Animation.h"
+#include "AnimationSystem.h"
 
 int main()
 {
@@ -51,12 +52,22 @@ int main()
 		testText.setPosition(gameWindow.getSize().x / 2 - testText.getLocalBounds().width / 2, 30);
 
 	//test animation
-		Animation testAnimation;
-		testAnimation.SetSprite(testsprite);
+
+		AnimationSystem testAnimationSystem;
+		testAnimationSystem.SetSprite(testsprite);
+
+
+		Animation& testAnimation = testAnimationSystem.CreateAnimation("Run");
 		testAnimation.AddFrame(AssetManager::GetTexture("graphics/playerRun1.png"));
 		testAnimation.AddFrame(AssetManager::GetTexture("graphics/playerRun2.png"));
-		testAnimation.Play();
 		testAnimation.SetLoop(true);
+		testAnimation.SetPlaybackSpeed(10.0f);
+
+		Animation& jumpAnimation = testAnimationSystem.CreateAnimation("Jump");
+		jumpAnimation.AddFrame(AssetManager::GetTexture("graphics/playerJump.png"));
+		
+
+		testAnimationSystem.Play("Run");
 
 	//----------------------------------------------------
 	//---------------=End game setup=---------------------
@@ -95,7 +106,7 @@ int main()
 		sf::Time frameTime = gameClock.restart();
 
 		//update Animation
-		testAnimation.Update(frameTime);
+		testAnimationSystem.Update(frameTime);
 
 		//-------------------------------------------------
 		//--------------=End Update=-----------------------
