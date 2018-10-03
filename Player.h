@@ -17,6 +17,8 @@ public:
 	void Draw(sf::RenderTarget& _target);
 
 	void Spawn();
+	
+	sf::Vector2f GetPosition();
 
 private:
 

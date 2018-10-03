@@ -30,6 +30,15 @@ int main()
 	Player player;
 	player.Spawn();
 
+	//test music
+	sf::Sound testmusic;
+	testmusic.setBuffer(AssetManager::GetSoundBuffer("audio/Persona5OST.ogg"));
+	testmusic.play();
+	testmusic.setLoop(true);
+
+	//create game camera
+	sf::View camera = gameWindow.getDefaultView();
+
 	//----------------------------------------------------
 	//---------------=End game setup=---------------------
 	//----------------------------------------------------
@@ -75,6 +84,9 @@ int main()
 		//process all game objects
 		player.Update(frameTime);
 
+		//update camera position
+		camera.setCenter(player.GetPosition().x + camera.getSize().x * 0.4f, camera.getCenter().y);
+
 		//-------------------------------------------------
 		//--------------=End Update=-----------------------
 		//-------------------------------------------------
@@ -89,7 +101,15 @@ int main()
 		gameWindow.clear(sf::Color::Black);
 
 		//draw everything
+		
+		//draw the game world using the camera 
+		gameWindow.setView(camera);
 		player.Draw(gameWindow);
+		
+		//draw UI to the window
+		gameWindow.setView(gameWindow.getDefaultView());
+		//TODO: UI
+
 
 		//display the window contents to the screen
 		gameWindow.display();
