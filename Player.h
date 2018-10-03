@@ -16,6 +16,7 @@ public:
 	void Update(sf::Time _frameTime);
 	void Draw(sf::RenderTarget& _target);
 
+	void Spawn();
 
 private:
 
@@ -24,7 +25,7 @@ private:
 	sf::Sound m_jumpSound;
 	sf::Sound m_deathSound;
 	sf::Sound m_landSound;
-	AnimationSystem m_animationSystem;
+	AnimationSystem m_animation;
 	
 
 	// state

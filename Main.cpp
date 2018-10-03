@@ -6,8 +6,7 @@
 
 //project includes
 #include "AssetManager.h"
-#include "Animation.h"
-#include "AnimationSystem.h"
+#include "Player.h"
 
 int main()
 {
@@ -27,47 +26,9 @@ int main()
 	//create AssetManager
 	AssetManager assets;
 
-	//testing AssetManager
-	//test sprite
-		sf::Sprite testsprite;
-		testsprite.setTexture(AssetManager::GetTexture("graphics/playerjump.png"));
-		testsprite.setPosition(gameWindow.getSize().x / 2 ,gameWindow.getSize().y / 2);
-		testsprite.setScale(3, 3);
-
-	//test music
-		sf::Sound testmusic;
-		testmusic.setBuffer(AssetManager::GetSoundBuffer("audio/Persona5OST.ogg"));
-		testmusic.play();
-		testmusic.setLoop(true);
-	
-	//test font
-
-		//create Title
-		sf::Text testText;
-		testText.setFont(AssetManager::GetFont("fonts/mainFont.ttf"));
-		testText.setString("Canabalt Persona 5 style");
-		testText.setCharacterSize(100);
-		testText.setFillColor(sf::Color::Red);
-		testText.setStyle(sf::Text::Bold | sf::Text::Italic);
-		testText.setPosition(gameWindow.getSize().x / 2 - testText.getLocalBounds().width / 2, 30);
-
-	//test animation
-
-		AnimationSystem testAnimationSystem;
-		testAnimationSystem.SetSprite(testsprite);
-
-
-		Animation& testAnimation = testAnimationSystem.CreateAnimation("Run");
-		testAnimation.AddFrame(AssetManager::GetTexture("graphics/playerRun1.png"));
-		testAnimation.AddFrame(AssetManager::GetTexture("graphics/playerRun2.png"));
-		testAnimation.SetLoop(true);
-		testAnimation.SetPlaybackSpeed(10.0f);
-
-		Animation& jumpAnimation = testAnimationSystem.CreateAnimation("Jump");
-		jumpAnimation.AddFrame(AssetManager::GetTexture("graphics/playerJump.png"));
-		
-
-		testAnimationSystem.Play("Run");
+	//create player
+	Player player;
+	player.Spawn();
 
 	//----------------------------------------------------
 	//---------------=End game setup=---------------------
@@ -88,8 +49,14 @@ int main()
 		sf::Event event;
 		while (gameWindow.pollEvent(event))
 		{
+			//pass input to game objects
+			player.Input(event);
+
+
 			if (event.type == sf::Event::Closed)
+			{
 				gameWindow.close();
+			}
 		}//end while(event polling loop)
 
 
@@ -105,8 +72,8 @@ int main()
 		//update time
 		sf::Time frameTime = gameClock.restart();
 
-		//update Animation
-		testAnimationSystem.Update(frameTime);
+		//process all game objects
+		player.Update(frameTime);
 
 		//-------------------------------------------------
 		//--------------=End Update=-----------------------
@@ -122,8 +89,7 @@ int main()
 		gameWindow.clear(sf::Color::Black);
 
 		//draw everything
-		gameWindow.draw(testsprite);
-		gameWindow.draw(testText);
+		player.Draw(gameWindow);
 
 		//display the window contents to the screen
 		gameWindow.display();
