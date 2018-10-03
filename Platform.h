@@ -21,5 +21,7 @@ private:
 	//assets
 	sf::Sprite m_sprite;
 	
+	//platform shared data
+	static float s_furthestPoint;
 
 };

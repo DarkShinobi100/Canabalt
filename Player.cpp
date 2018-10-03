@@ -103,7 +103,7 @@ sf::Vector2f Player::GetPosition()
 	return m_sprite.getPosition();
 }
 
-void Player::HandleCollision(sf::FloatRect _platform)
+void Player::HandleCollision(std::vector<sf::FloatRect>_platforms)
 {
 	//record whether we used to be touching the ground
 	bool wereTouchingGround = m_touchingGround;
@@ -114,43 +114,50 @@ void Player::HandleCollision(sf::FloatRect _platform)
 	//get the collider for the player
 	sf::FloatRect playerCollider = m_sprite.getGlobalBounds();
 
-	//does our sprite intersect the platform?
-	if (playerCollider.intersects(_platform))
+	//Loop through each platform collider
+	for (auto it = _platforms.begin(); it != _platforms.end(); ++it)
 	{
-		//yes it intersects!
-
-		//check if the bottom of our feet is touching the top of the platform
-		
-		//create feet collider
-		sf::FloatRect feetCollider = playerCollider;
-		//set our feet to be 10 pixels from the bottom of the player collider
-		feetCollider.top += playerCollider.height - 10;
-		//set out feet collider height to be 10 pixels
-		feetCollider.height = 10;
-
-		//create platform top collider
-		sf::FloatRect platformTop = _platform;
-		platformTop.height = 10;
-
-		//are the feet touching the top of the platform?
-		if (feetCollider.intersects(platformTop))
+		//go to iterator pointer and get rect
+		sf::FloatRect platformCollider = *it;
+	
+		//does our sprite intersect the platform?
+		if (playerCollider.intersects(platformCollider))
 		{
-			//yes feet are touching
+			//yes it intersects!
 
-			//record that we're touching the ground
-			m_touchingGround = true;
+			//check if the bottom of our feet is touching the top of the platform
+		
+			//create feet collider
+			sf::FloatRect feetCollider = playerCollider;
+			//set our feet to be 10 pixels from the bottom of the player collider
+			feetCollider.top += playerCollider.height - 10;
+			//set out feet collider height to be 10 pixels
+			feetCollider.height = 10;
 
-		    //check if we are falling downward
-			if (wereTouchingGround == false && m_velocity.y > 0)
+			//create platform top collider
+			sf::FloatRect platformTop = platformCollider;
+			platformTop.height = 10;
+
+			//are the feet touching the top of the platform?
+			if (feetCollider.intersects(platformTop))
 			{
-				//we have touched the ground
-				
-					m_animation.Play("Run");
-					m_landSound.play();
-					m_velocity.y = 0;
-			}
-		}
+				//yes feet are touching
 
+				//record that we're touching the ground
+				m_touchingGround = true;
+
+				//check if we are falling downward
+				if (wereTouchingGround == false && m_velocity.y > 0)
+				{
+					//we have touched the ground
+				
+						m_animation.Play("Run");
+						m_landSound.play();
+						m_velocity.y = 0;
+				}
+			}
+
+		}
 	}
 
 	//if we aren't touching the ground
