@@ -50,7 +50,7 @@ void Player::Input(sf::Event _gameEvent)
 	if (_gameEvent.type == sf::Event::KeyPressed)
 	{
 		//check if the desired button was pressed
-		if (_gameEvent.key.code == sf::Keyboard::Space)
+		if (_gameEvent.key.code == sf::Keyboard::Space && m_touchingGround == true)
 		{
 			//player has tried to jump
 
