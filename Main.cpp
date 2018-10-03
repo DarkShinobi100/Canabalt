@@ -29,12 +29,7 @@ int main()
 	//create player
 	Player player;
 	player.Spawn();
-
-	//test music
-	sf::Sound testmusic;
-	testmusic.setBuffer(AssetManager::GetSoundBuffer("audio/Persona5OST.ogg"));
-	testmusic.play();
-	testmusic.setLoop(true);
+	
 
 	//create game camera
 	sf::View camera = gameWindow.getDefaultView();
